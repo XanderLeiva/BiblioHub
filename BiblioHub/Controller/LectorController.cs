@@ -14,7 +14,7 @@ public class LectorController: ControllerBase
 
     public LectorController(LectorServices lectorService)
     {
-        _lectorService = lectorService;
+        _lectorServices = lectorService;
     }
 
     // api/Lector

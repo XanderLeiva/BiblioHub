@@ -20,7 +20,7 @@ public class AuthController: ControllerBase
     {
         try
         {
-            var respuesta = await _authService.Register(dto);
+            var respuesta = await _authService.RegisterDto(dto);
             return Ok(respuesta);
         }
         catch (Exception ex)
