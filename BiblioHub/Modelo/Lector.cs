@@ -17,7 +17,7 @@ public class Lector
     
     public string PhoneNumber { get; set; } = string.Empty;
     
-    public DateTime BirthDate { get; set; }
+    public string BirthDate { get; set; }
     
     public string Country { get; set; } = string.Empty;
     
