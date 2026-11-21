@@ -1,6 +1,7 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using BiblioHub.DTOs;
 using BiblioHub.Services;
 
 namespace BiblioHub.Controllers;
@@ -53,4 +54,26 @@ public class LectorController: ControllerBase
             return BadRequest(new {message = e.Message});
         }
     }
-}   
+
+    // Endpoint POST /api/Lector/buscar -- Alamn Bardales
+    [HttpPost("buscar")]
+    public async Task<IActionResult> Buscar([FromBody] BuscarLectorDto filtro)
+    {
+        try
+        {
+            var userId = User.FindFirst("user_id")?.Value
+                         ?? User.FindFirst(ClaimTypes.NameIdentifier)?.Value
+                         ?? User.FindFirst("sub")?.Value;
+
+            if (string.IsNullOrEmpty(userId))
+                return Unauthorized();
+
+            var lectores = await _lectorServices.BuscarLectores(filtro, userId);
+            return Ok(lectores);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(new {message = e.Message});
+        }
+    }
+}
